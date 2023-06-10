@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/Interface.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/appoinment.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/menu.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/propose.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/propose_del.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/sum.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/table.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/table_insert.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/tmp.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Admin_System/user.jsp" value="file://$PROJECT_DIR$/web/Admin_System" />
+        <entry key="file://$PROJECT_DIR$/web/Inet.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/display.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/index.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/log.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/my.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/order.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/project.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/reserve.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/status.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/sum.jsp" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/tmp/Car.jsp" value="file://$PROJECT_DIR$/web/tmp" />
+        <entry key="file://$PROJECT_DIR$/web/tmp/buy.jsp" value="file://$PROJECT_DIR$/web/tmp" />
+        <entry key="file://$PROJECT_DIR$/web/tmp/del.jsp" value="file://$PROJECT_DIR$/web/tmp" />
+        <entry key="file://$PROJECT_DIR$/web/tmp/limit.jsp" value="file://$PROJECT_DIR$/web/tmp" />
+        <entry key="file://$PROJECT_DIR$/web/tmp1/insert.jsp" value="file://$PROJECT_DIR$/web/tmp1" />
+        <entry key="file://$PROJECT_DIR$/web/tmp_class/longin.jsp" value="file://$PROJECT_DIR$/web/tmp_class" />
+        <entry key="file://$PROJECT_DIR$/web/tmp_class/num2calu.jsp" value="file://$PROJECT_DIR$/web/tmp_class" />
+        <entry key="file://$PROJECT_DIR$/web/tmp_class/sjx.html" value="file://$PROJECT_DIR$/web/tmp_class" />
+        <entry key="file://$PROJECT_DIR$/web/tmp_class/test01.jsp" value="file://$PROJECT_DIR$/web/tmp_class" />
+      </map>
+    </option>
+  </component>
+</project>
