@@ -1,0 +1,116 @@
+---- 用户年主打次数
+select tel,name,count(1)  from analysis group by tel,name,substring(date_time,1,4);
+--- 用户年跟谁通过话
+select b.tel,analysis.name,b.tel1,cnt from analysis join (
+    select * from (
+          select  tel,tel1,count(tel1) as cnt from analysis group by  tel,tel1
+          union
+          select tel1,tel,count(tel) as cnt from analysis group by tel1,tel
+                  ) a order by a.tel
+) b on  analysis.tel = b.tel;
+-- 用户年通话次数
+select  a.tel,sum(a.cnt) from (
+      select  tel,count(tel1) as cnt from analysis group by  tel
+      union
+      select tel1,count(tel) as cnt from analysis group by tel1
+  ) a group by tel;
+--- 亲密度统计
+with t1 as (
+    select tel,tel1,sum(duration) as cnt from analysis group by tel, tel1
+    union
+    select tel1,tel,sum(duration) as cnt  from analysis group by tel1, tel
+),t2 as (
+    select tel,max(cnt) max_cnt from t1 group by  tel
+)
+select t1.tel,t1.tel1,t1.cnt from t1 join t2 on t1.tel = t2.tel and t1.cnt = t2.max_cnt;
+
+
+select * from (
+      select tel,tel1,sum(duration) as cnt from analysis group by tel, tel1
+      union
+      select tel1,tel,sum(duration) as cnt  from analysis group by tel1, tel
+                  ) a where (a.tel,a.cnt) in (
+                                                 select tel,max(v.cnt) from (
+                                                           select tel,sum(duration) as cnt from analysis group by tel,tel1
+                                                           union
+                                                           select tel,sum(duration) as cnt  from analysis group by  tel,tel1) v
+                                                 group by v.tel )
+                      order by cnt desc ;
+-- 用户月跟谁通过话以及通话时间
+select b.tel,a.name,b.tel1,b.mouth1,total,cnt from analysis a join (
+    select tel,tel1,substring(date_time,5,2) as mouth1,sum(duration) as total ,count(tel) as cnt
+    from analysis group by tel,tel1,substring(date_time,5,2)
+    union
+    select tel1,tel1,substring(date_time,5,2) as mouth1,sum(duration) as total,count(tel) as cnt
+    from analysis group by tel,tel1,substring(date_time,5,2)
+    order by tel
+) b on a.tel = b.tel;
+-- 用户年龄分布 得到通话时间长度与年龄的关系
+select b.tel,age,b.sum1 from  base join (
+    select tel, sum(a.total) as sum1 from (
+              select tel,sum(duration) as total from analysis group by tel
+              union
+              select tel1,sum(duration) as total from analysis group by tel1
+          ) a group by tel
+) b on base.tel = b.tel;
+-- 用户年通话时间取 top 10
+select * from (
+select tel,sum1,rank() over (order by sum1) as top10  from (
+     select tel, sum(a.total) as sum1 from (
+           select tel,sum(duration) as total from analysis group by tel
+           union
+           select tel1,sum(duration) as total from analysis group by tel1
+                        ) a group by tel
+                           ) n
+              ) m where m.top10  < 11;
+--- 用户省份分布   -- 用户通话次数的性别姓名 -- 用户月通话时间明细 over
+select split(address,"-")[0] as province,count(1) from analysis group by split(address,"-")[0];
+-- 用户通话次数的性别姓名
+select c.*,a.name,a.gender from  (select distinct  name,gender,tel from analysis) a join (
+    select * from (
+                      select tel,tel1,sum(duration) as cnt from analysis group by tel, tel1
+                      union
+                      select tel1,tel,sum(duration) as cnt  from analysis group by tel1, tel
+                  ) a where (a.tel,a.cnt) in (
+        select tel,max(v.cnt) from (
+                                       select tel,sum(duration) as cnt from analysis group by tel,tel1
+                                       union
+                                       select tel,sum(duration) as cnt  from analysis group by  tel,tel1
+                                   )  v  group by v.tel ) order by cnt desc
+) c on a.tel = c.tel1;
+-- 用户月通话时间明细 over
+set mapreduce.job.reduce = 3;
+select * from (
+                  select  tel,tel1,sum(duration)
+                                       over (partition by substring(date_time,6,2),tel order by substring(date_time,6,2)) as total
+                  from analysis
+                  union
+                  select tel1,tel,sum(duration)
+                                      over (partition by substring(date_time,6,2),tel1 order by substring(date_time,6,2)) as total
+                  from analysis
+              ) a
+
+
+-- 用户通话分钟的性别姓名
+with t1 as (
+    select tel,tel1,sum(duration) as cnt from analysis group by tel, tel1
+    union
+    select tel1,tel,sum(duration) as cnt  from analysis group by tel1, tel
+),t2 as (
+    select tel,max(cnt) max_cnt from t1 group by  tel
+),t3 as (select t1.tel,t1.tel1,t1.cnt from t1 join t2 on t1.tel = t2.tel and t1.cnt = t2.max_cnt)
+select t3.*,base.age,base.gender from t3 join base on t3.tel1 = base.tel;
+
+
+select c.*,a.name,a.gender from  (select distinct  name,gender,tel from analysis) a join (
+    select * from (
+                      select tel,tel1,sum(duration) as cnt from analysis group by tel, tel1
+                      union
+                      select tel1,tel,sum(duration) as cnt  from analysis group by tel1, tel
+                  ) a where (a.tel,a.cnt) in (
+        select tel,max(v.cnt) from (
+                                       select tel,sum(duration) as cnt from analysis group by tel,tel1
+                                       union
+                                       select tel,sum(duration) as cnt  from analysis group by  tel,tel1
+                                   )  v  group by v.tel ) order by cnt desc
+) c on a.tel = c.tel1;
